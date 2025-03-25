@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Breakdown</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 500px; margin: auto; padding: 20px; }
+        label, select, input { display: block; width: 100%; margin-bottom: 10px; }
+        button { background-color: blue; color: white; padding: 10px; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>Laporan Breakdown</h2>
+    <form id="reportForm">
+        <label>Nama:</label>
+        <input type="text" id="nama" required>
+        
+        <label>Staff ID:</label>
+        <input type="text" id="staffId" required>
+        
+        <label>Bangunan:</label>
+        <select id="bangunan" required>
+            <option value="Ain 1">Ain 1</option>
+            <option value="Ain 2">Ain 2</option>
+            <option value="Ain 5">Ain 5</option>
+        </select>
+        
+        <label>Production Line:</label>
+        <select id="productionLine" required>
+            <option value="BFS 1">BFS 1</option>
+            <option value="BFS 2">BFS 2</option>
+            <option value="HDF">HDF</option>
+            <option value="Bicard Powder">Bicard Powder</option>
+            <option value="BFS 3">BFS 3</option>
+            <option value="SVP 1">SVP 1</option>
+            <option value="SVP 2">SVP 2</option>
+            <option value="BFS 5">BFS 5</option>
+            <option value="SVP 4">SVP 4</option>
+        </select>
+        
+        <label>Station:</label>
+        <select id="station" required>
+            <option value="Mixing">Mixing</option>
+            <option value="Filling">Filling</option>
+            <option value="Packing">Packing</option>
+            <option value="MW">MW</option>
+            <option value="Autoclave">Autoclave</option>
+            <option value="Vacuum Chamber">Vacuum Chamber</option>
+            <option value="Labelling">Labelling</option>
+        </select>
+        
+        <label>Masa Mula:</label>
+        <input type="datetime-local" id="masaMula" required>
+        
+        <label>Masa Tamat:</label>
+        <input type="datetime-local" id="masaTamat" required>
+        
+        <button type="button" onclick="submitReport()">Submit Report</button>
+    </form>
+    
+    <script>
+        function submitReport() {
+            const nama = document.getElementById('nama').value;
+            const staffId = document.getElementById('staffId').value;
+            const bangunan = document.getElementById('bangunan').value;
+            const productionLine = document.getElementById('productionLine').value;
+            const station = document.getElementById('station').value;
+            const masaMula = document.getElementById('masaMula').value;
+            const masaTamat = document.getElementById('masaTamat').value;
+            
+            const data = { nama, staffId, bangunan, productionLine, station, masaMula, masaTamat };
+            
+            fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => alert('Laporan berjaya dihantar!'))
+            .catch(error => alert('Ralat: ' + error));
+        }
+    </script>
+</body>
+</html>
